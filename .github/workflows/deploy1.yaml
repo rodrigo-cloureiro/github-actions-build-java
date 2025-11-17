@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
@@ -51,10 +54,14 @@ jobs:
       - name: Build Docker
         run: |
           cd docker
-          docker build . -t rodrigoloureiro/cervejaria-devops-2025:${{ steps.bump.outputs.version }}
+          docker build . -t rodrigoloureiro/cervejaria-devops:${{ steps.bump.outputs.version }}
 
       - name: Commit POM
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "github bot ci: Bump para versão ${{ steps.bump.outputs.version }}"
           file_pattern: "pom.xml"
+
+      - name: Docker TAG
+        run: |
+          docker tag rodrigoloureiro/cervejaria-devops:${{ steps.bump.outputs.version }} rodrigoloureiro/cervejaria-devops:latest
