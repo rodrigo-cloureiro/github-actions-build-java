@@ -77,3 +77,14 @@ jobs:
       - name: Docker Push Latest
         run: |
           docker push rodrigoloureiro/cervejaria-devops:latest
+
+      - name: (Rascunho) Determinar o tipo de Version pela Label
+        id: version-type
+        run: |
+          echo "Verificando labels do PR..."
+          LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels -q ".labels[].name")
+          VERSION_TYPE="patch"
+          if echo "$LABELS" | grep -q 'version:major'; then VERSION_TYPE="major"; fi
+          if echo "$LABELS" | grep -q 'version:minor'; then VERSION_TYPE="minor"; fi
+          echo "version_type=$VERSION_TYPE" >> $GITHUB_OUTPUT
+          echo "$VERSION_TYPE"
