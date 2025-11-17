@@ -52,3 +52,9 @@ jobs:
         run: |
           cd docker
           docker build . -t rodrigoloureiro/cervejaria-devops-2025:${{ steps.bump.outputs.version }}
+
+      - name: Commit POM
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "github bot ci: Bump para versão ${{ steps.bump.outputs.version }}"
+          file_pattern: "pom.xml"
