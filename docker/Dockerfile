@@ -1,5 +1,5 @@
 FROM amazoncorretto:17
-LABEL authors="leonardogloria"
+LABEL authors="rodrigoloureiro"
 WORKDIR /app
 COPY app.jar app.jar
 EXPOSE 8080

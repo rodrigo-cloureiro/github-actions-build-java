@@ -38,4 +38,4 @@ jobs:
       - name: Build Docker
         run: |
           cd docker
-          docker build . -t leogloriainfnet/cervejaria-devops-2025
+          docker build . -t rodrigoloureiro/cervejaria-devops-2025
